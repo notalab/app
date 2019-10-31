@@ -1,0 +1,35 @@
+<div class="container container--is-center auth__container">
+    <h1 class="auth__title">Create Account</h1>
+    <p><span>Sync your accounts anywhere and everywhere.</span></p>
+
+    <div class="form form--is-column">
+        <div class="form__item">
+            <input type="text" id="username" class="input" [(ngModel)]="username" (keyup.enter)="submit()" (keydown)="errors.username = null" placeholder="Username" />
+        </div>
+        <div class="form__item">
+            <input type="text" id="email" class="input" [(ngModel)]="email" (keyup.enter)="submit()" (keydown)="errors.email = null" placeholder="Email Address" />
+        </div>
+        <div class="form__item">
+            <input type="password" id="password" class="input" [(ngModel)]="password" (keyup.enter)="submit()" (keydown)="errors.password = null" placeholder="Password" />
+        </div>
+        <label class="form__item flex input__label input__checkbox margin-top" for="terms">
+            <input id="terms" type="checkbox" class="margin-right--sm" [(ngModel)]="termsConditions" />
+            I agree with the Terms &amp; Conditions.
+        </label>
+        <label class="form__item flex input__label input__checkbox margin-bot" style="margin-top:-0.25rem;" for="privacy">
+            <input id="privacy" type="checkbox" class="margin-right--sm" [(ngModel)]="privacyPolicy" />
+            I agree with the Privacy Policy.
+        </label>
+
+        <div class="form--button-group margin-top">
+            <button id="login-button" class="button__grey margin-right--lg" (click)="login()">Log In</button>
+            <button id="register-button" class="button__primary" (click)="submit()" [disabled]="registerLoading">{{ registerLoading ? 'Loading...' : 'Register' }}</button>
+        </div>
+    </div>
+
+    <div id="spacer" class="margin-top--xl margin-bot-lg">
+        <h2>OR</h2>
+    </div>
+
+    <a>Continue without an account.</a>
+</div>
