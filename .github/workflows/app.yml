@@ -1,4 +1,4 @@
-name: CLIENT-Test-DEV
+name: APP-Test
 
 on: [push]
 
@@ -18,14 +18,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install dependencies
-      working-directory: ./nota
       run: npm install
     - name: Lint
-      working-directory: ./nota
       run: npm run lint
-    - name: Build
-      working-directory: ./nota
-      run: npm run build:prod
     - name: Test
-      working-directory: ./nota
       run: npm run test:ci
+    - name: Build (PROD env)
+      run: npm run build:prod
