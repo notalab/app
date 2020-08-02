@@ -1,5 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { SidebarDirectiveComponent } from './sidebar.directive';
 import { AppModule } from 'app/app.module';
 import { DebugElement } from '@angular/core';
@@ -9,16 +8,20 @@ import { MOCK_AUTH_PROVIDER } from 'app/providers/tests/auth.mock.service';
 import { Observable, of } from 'rxjs';
 import { APIResponse } from 'app/providers/http.service';
 import { NotebookService } from 'app/components/app/notebook.service';
+import { Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
+import { routes } from 'app/components/app/main-routing.module';
 
 describe('SidebarDirectiveComponent', () => {
     let component: SidebarDirectiveComponent;
     let fixture: ComponentFixture<SidebarDirectiveComponent>;
     let debug: DebugElement;
     let service: MockNotebookService;
+    let location: Location;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ AppModule ],
+            imports: [ AppModule, RouterTestingModule.withRoutes(routes) ],
             providers: [ MOCK_AUTH_PROVIDER, {provide: NotebookService, useClass: MockNotebookService} ]
         })
         .compileComponents();
@@ -29,6 +32,7 @@ describe('SidebarDirectiveComponent', () => {
         component = fixture.componentInstance;
         debug = fixture.debugElement;
         service = TestBed.inject(NotebookService);
+        location = TestBed.inject(Location);
         fixture.detectChanges();
     });
 
@@ -97,13 +101,27 @@ describe('SidebarDirectiveComponent', () => {
     it('should delete a specific notebook by id', () => {
         component.notebooks = [];
         let notebook = new Notebook({
-            id: 22,
+            id: 1,
         });
 
         component.notebooks.push(notebook);
         component.deleteNotebook(notebook);
         expect(component.notebooks.length).toEqual(0);
     });
+
+    // it('should go to notebook route when clicked', fakeAsync(() => {
+    //     fixture.ngZone.run(() => {
+    //         let notebook = new Notebook({
+    //             id: 1,
+    //         });
+
+    //         component.notebooks.push(notebook);
+
+    //         debug.query(By.css('#notebook-1')).nativeElement.click();
+    //         tick();
+    //         expect(location.path()).toBe('/app/notebook/1');
+    //     });
+    // }));
 });
 
 class MockNotebookService {
