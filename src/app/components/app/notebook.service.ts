@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class NotebookService {
 
+    public notebooks: Notebook[] = [];
+
     constructor(private http: HttpService) { }
 
     public createNotebook(notebook: Notebook): Observable<APIResponse<Notebook>> {

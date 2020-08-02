@@ -14,7 +14,6 @@ type MenuType = 'generic' | 'settings';
 export class SidebarDirectiveComponent implements OnInit {
 
     public activeMenu: MenuType;
-    public notebooks: Notebook[] = [];
     public newNotebook: Notebook;
     public showNewNotebook = false;
     public newNotebookError = null;
@@ -27,16 +26,14 @@ export class SidebarDirectiveComponent implements OnInit {
     };
     public contextNotebook: Notebook;
 
-    constructor(public authService: AuthService, private notebookService: NotebookService) {}
+    constructor(public authService: AuthService, public notebookService: NotebookService) {}
 
     ngOnInit() {
         this.activeMenu = 'generic';
 
         this.notebookService.getAllNotebooks().subscribe(
             data => {
-                data.data.forEach((notebook: Notebook) => {
-                    this.notebooks.push(notebook);
-                });
+                this.notebookService.notebooks = data.data;
             }
         );
     }
@@ -78,7 +75,7 @@ export class SidebarDirectiveComponent implements OnInit {
 
         this.notebookService.createNotebook(this.newNotebook).subscribe(
             data => {
-                this.notebooks.push(data.data);
+                this.notebookService.notebooks.push(data.data);
                 this.newNotebook = undefined;
                 this.showNewNotebook = false;
                 this.newNotebookLoading = false;
@@ -96,7 +93,7 @@ export class SidebarDirectiveComponent implements OnInit {
     }
 
     public dropNotebook(event: CdkDragDrop<string[]>): void {
-        moveItemInArray(this.notebooks, event.previousIndex, event.currentIndex);
+        moveItemInArray(this.notebookService.notebooks, event.previousIndex, event.currentIndex);
     }
 
     public showNotebookContext(event: any, notebook: Notebook): void {
