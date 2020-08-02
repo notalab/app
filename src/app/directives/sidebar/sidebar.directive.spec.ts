@@ -64,7 +64,7 @@ describe('SidebarDirectiveComponent', () => {
         });
 
         component.createNotebook();
-        expect(component.notebooks.length).toEqual(1);
+        expect(service.notebooks.length).toEqual(1);
     });
 
     it('should open create notebook modal with new object when button is clicked', () => {
@@ -79,7 +79,7 @@ describe('SidebarDirectiveComponent', () => {
         component.initiateNewNotebook();
         component.createNotebook();
         expect(component.newNotebookError).toBeTruthy();
-        expect(component.notebooks.length).toEqual(1);
+        expect(service.notebooks.length).toEqual(1);
     });
 
     it('should produce an error when no color is selected for a new notebook', () => {
@@ -87,7 +87,7 @@ describe('SidebarDirectiveComponent', () => {
         component.newNotebook.name = 'Test';
         component.createNotebook();
         expect(component.newNotebookError).toBeTruthy();
-        expect(component.notebooks.length).toEqual(1);
+        expect(service.notebooks.length).toEqual(1);
     });
 
     it('should produce an error if the new notebook name is > 24 characters', () => {
@@ -95,18 +95,18 @@ describe('SidebarDirectiveComponent', () => {
         component.newNotebook.name = '123456789012345678901234567689';
         component.createNotebook();
         expect(component.newNotebookError).toBeTruthy();
-        expect(component.notebooks.length).toEqual(1);
+        expect(service.notebooks.length).toEqual(1);
     });
 
     it('should delete a specific notebook by id', () => {
-        component.notebooks = [];
+        service.notebooks = [];
         let notebook = new Notebook({
             id: 1,
         });
 
-        component.notebooks.push(notebook);
+        service.notebooks.push(notebook);
         component.deleteNotebook(notebook);
-        expect(component.notebooks.length).toEqual(0);
+        expect(service.notebooks.length).toEqual(0);
     });
 
     // it('should go to notebook route when clicked', fakeAsync(() => {
@@ -115,7 +115,7 @@ describe('SidebarDirectiveComponent', () => {
     //             id: 1,
     //         });
 
-    //         component.notebooks.push(notebook);
+    //         service.notebooks.push(notebook);
 
     //         debug.query(By.css('#notebook-1')).nativeElement.click();
     //         tick();
@@ -125,6 +125,8 @@ describe('SidebarDirectiveComponent', () => {
 });
 
 class MockNotebookService {
+
+    public notebooks: Notebook[] = [];
 
     public createNotebook(form: any): Observable<APIResponse<Notebook>> {
         let notebook = new Notebook({
