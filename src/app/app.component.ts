@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   public loadingApplication: boolean;
   public isConnected: boolean;
 
-  constructor(public electronService: ElectronService, private appService: AppService, private translateService: TranslateService, private authService: AuthService, private router: Router) {}
+  constructor(public electronService: ElectronService, private appService: AppService, private translateService: TranslateService, public authService: AuthService, private router: Router) {}
 
   public ngOnInit(): void {
     this.loadingApplication = true;

@@ -103,6 +103,7 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        outline: none;
 
         &--title {
             color: $almost-black;

@@ -47,6 +47,7 @@ import { TitlebarDirectiveComponent } from './directives/titlebar/titlebar.direc
 import { NoteItemDirectiveComponent } from './directives/notes/note-item.directive';
 import { EditorDirectiveComponent } from './directives/notes/editor.directive';
 import { ContextNotebookDirectiveComponent } from './directives/context/context-notebook.directive';
+import { NotebookComponent } from './components/app/notebook/notebook.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locales/', '.json');
@@ -67,7 +68,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TitlebarDirectiveComponent,
     NoteItemDirectiveComponent,
     EditorDirectiveComponent,
-    ContextNotebookDirectiveComponent
+    ContextNotebookDirectiveComponent,
+    NotebookComponent
   ],
   imports: [
     BrowserModule,

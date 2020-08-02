@@ -5,6 +5,7 @@ import {
 } from 'app/providers/auth-guard.service';
 
 import { InboxComponent } from 'app/components/app/inbox/inbox.component';
+import { NotebookComponent } from 'app/components/app/notebook/notebook.component';
 
 export const routes: Routes = [
     {
@@ -14,6 +15,10 @@ export const routes: Routes = [
             {
                 path: 'inbox',
                 component: InboxComponent
+            },
+            {
+                path: 'notebook/:id',
+                component: NotebookComponent
             }
         ]
     }
