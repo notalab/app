@@ -42,12 +42,11 @@
 
         &--item {
             background-color: $white;
-            border-left: 7.5px solid #1DE04A;
             height: 110px;
             width: calc(100% - 7.5px);
             margin-bottom: 1px;
             cursor: pointer;
-            transition: $transition;
+            transition: background-color .1s linear;
             user-select: none;
 
             &-container {

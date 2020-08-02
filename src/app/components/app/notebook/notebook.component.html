@@ -1,6 +1,6 @@
 <div id="notes-pane" class="notes notes__pane">
     <div class="notes__search">
-        <input type="text" id="search-inbox" class="input notes__search--input" placeholder="Search Inbox..." />
+        <input type="text" id="search-inbox" class="input notes__search--input" [placeholder]="'Search ' + notebook.name + '...'" />
     </div>
 
     <div class="notes__notes">
@@ -8,7 +8,7 @@
             <p>Nothing to see here.</p>
             <p>Why not <span class="notes__notes--empty--add">Add a Note</span>?</p>
         </div>
-        <note-item *ngFor="let note of notes" [note]="note" (click)="selectNote(note)"></note-item>
+        <note-item *ngFor="let note of notes" [note]="note" [color]="notebook.color" (click)="selectNote(note)"></note-item>
     </div>
 </div>
 

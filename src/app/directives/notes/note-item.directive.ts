@@ -10,6 +10,7 @@ import * as moment from 'moment';
 export class NoteItemDirectiveComponent implements OnInit {
 
     @Input() note: Note;
+    @Input() color: string;
     public relativeUpdatedTime: string;
 
     constructor(private authService: AuthService) { }

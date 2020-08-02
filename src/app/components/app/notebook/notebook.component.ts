@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Note } from 'app/models/core/Note';
+import { Notebook } from 'app/models/core/Notebook';
+import { NotebookService } from 'app/components/app/notebook.service';
 
 @Component({
     selector: 'app-notebook',
@@ -8,15 +10,16 @@ import { Note } from 'app/models/core/Note';
 })
 export class NotebookComponent implements OnInit {
 
+    public notebook: Notebook;
     public notes: Note[] = [];
     public selectedNote: Note;
 
-    constructor(private route: ActivatedRoute) { }
+    constructor(private route: ActivatedRoute, private notebookService: NotebookService) { }
 
     ngOnInit(): void {
         this.route.params.subscribe(
             params => {
-                console.log(params);
+                this.notebook = this.notebookService.notebooks.find((notebook: Notebook) => notebook.id === Number(params.id));
             }
         );
 

@@ -1,4 +1,6 @@
-<div class="notes__notes--item">
+<div class="notes__notes--item" [ngStyle]="{
+    'border-left': '7.5px solid #' + color
+}">
     <div class="notes__notes--item-container">
         <div class="notes__notes--item-row">
             <div class="notes__notes--item-user">{{ getAuthor() }}</div>
