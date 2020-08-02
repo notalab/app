@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { NotebookComponent } from './notebook.component';
 import { ActivatedRoute } from '@angular/router';
@@ -8,11 +8,14 @@ import { MOCK_AUTH_PROVIDER } from 'app/providers/tests/auth.mock.service';
 import { Notebook } from 'app/models/core/Notebook';
 import { NotebookService } from 'app/components/app/notebook.service';
 import { of } from 'rxjs';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('NotebookComponent', () => {
     let component: NotebookComponent;
     let fixture: ComponentFixture<NotebookComponent>;
     let service: MockNotebookService;
+    let debug: DebugElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -26,12 +29,22 @@ describe('NotebookComponent', () => {
         fixture = TestBed.createComponent(NotebookComponent);
         component = fixture.componentInstance;
         service = TestBed.inject(NotebookService);
+        debug = fixture.debugElement;
         fixture.detectChanges();
     });
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should select a note when a note is clicked', fakeAsync(() => {
+        spyOn(component, 'selectNote').and.callThrough();
+        fixture.detectChanges();
+        debug.query(By.css('#note-Title')).nativeElement.click();
+        tick();
+        expect(component.selectNote).toHaveBeenCalled();
+        expect(component.selectedNote).toBeTruthy();
+    }));
 });
 
 class MockNotebookService {

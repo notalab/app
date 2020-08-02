@@ -11,7 +11,6 @@ import { NotebookService } from 'app/components/app/notebook.service';
 export class NotebookComponent implements OnInit {
 
     public notebook: Notebook;
-    public notes: Note[] = [];
     public selectedNote: Note;
 
     constructor(private route: ActivatedRoute, private notebookService: NotebookService) { }
@@ -23,7 +22,9 @@ export class NotebookComponent implements OnInit {
             }
         );
 
-        this.notes.push(new Note({
+        // tests
+        this.notebook.notes = [];
+        this.notebook.notes.push(new Note({
             title: 'Title',
             createdAt: 1596363751,
             updatedAt: 1596363751,
