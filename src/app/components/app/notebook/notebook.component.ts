@@ -23,7 +23,6 @@ export class NotebookComponent implements OnInit {
         );
 
         // tests
-        this.notebook.notes = [];
         this.notebook.notes.push(new Note({
             title: 'Title',
             createdAt: 1596363751,
