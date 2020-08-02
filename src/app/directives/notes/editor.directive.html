@@ -3,11 +3,11 @@
         <p>Nothing to see here.</p>
         <p>Why not <span class="editor__deselected--add">Add a Note</span>?</p>
     </div> -->
-    <div class="editor__pane">
+    <div class="editor__pane" *ngIf="note">
         <div class="editor__editor">
             <div class="editor__editor--header">
                 <span class="editor__editor--header_color"></span>
-                <input class="editor__editor--header_title" value="English Tuesday 2 June">
+                <input class="editor__editor--header_title" [value]="note.title">
 
                 <div class="editor__editor--icons">
                     <i class="editor__editor--icons_icon fa fa-trash" aria-hidden="true" title="Delete Note"></i>

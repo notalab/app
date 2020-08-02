@@ -4,6 +4,7 @@ import { NotebookComponent } from './notebook.component';
 import { ActivatedRoute } from '@angular/router';
 import { AppModule } from 'app/app.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MOCK_AUTH_PROVIDER } from 'app/providers/tests/auth.mock.service';
 
 describe('NotebookComponent', () => {
     let component: NotebookComponent;
@@ -12,7 +13,7 @@ describe('NotebookComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ AppModule ],
-            providers: [ RouterTestingModule ]
+            providers: [ RouterTestingModule, MOCK_AUTH_PROVIDER ]
         })
         .compileComponents();
     }));

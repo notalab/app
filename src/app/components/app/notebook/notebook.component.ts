@@ -9,6 +9,7 @@ import { Note } from 'app/models/core/Note';
 export class NotebookComponent implements OnInit {
 
     public notes: Note[] = [];
+    public selectedNote: Note;
 
     constructor(private route: ActivatedRoute) { }
 
@@ -27,6 +28,10 @@ export class NotebookComponent implements OnInit {
             tags: [],
             content: null
         }));
+    }
+
+    public selectNote(note: Note): void {
+        this.selectedNote = note;
     }
 
 }
