@@ -31,6 +31,7 @@
     "ng:serve": "ng serve -c dev",
     "ng:serve:web": "npm run postinstall:web && ng serve -o",
     "ng:serve:dev": "ng serve -c dev",
+    "ng:serve:staging": "ng serve -c staging",
     "ng:serve:prod": "ng serve -c production",
     "electron:serve-tsc": "tsc -p tsconfig-serve.json",
     "electron:serve": "wait-on http-get://localhost:4001/ && npm run electron:serve-tsc && electron . --serve",

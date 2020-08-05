@@ -1,5 +1,6 @@
 export const AppConfig = {
     production: true,
     environment: 'STG',
-    apiUrl: 'miitch.io:4943'
+    apiUrl: 'miitch.io:8000',
+    name: 'Staging'
 };
