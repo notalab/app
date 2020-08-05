@@ -20,13 +20,14 @@
             <div class="form form--is-row margin-top--lg">
                 <input type="text" id="notebook-color" class="input margin-right--sm" [ngStyle]="{
                     'background-color': notebook.color ? lighten(notebook.color) : '#E5E5E5',
-                    'border': notebook.color ? '1px solid ' + notebook.color : '1px solid transparent'
-                }" [value]="notebookTitle" disabled>
+                    'border': notebook.color ? '1px solid #' + notebook.color : '1px solid transparent'
+                }" [ngClass]="{'input--has-error': errors.notebook}" [value]="notebookTitle" disabled>
                 <button-right-small (click)="setColor()"></button-right-small>
             </div>
+            <span *ngIf="errors.notebook" class="input__validation input__validation--error">{{ errors.notebook }}</span>
 
             <div class="margin-top--lg">
-                <color-picker (color)="notebook.color = $event"></color-picker>
+                <color-picker (color)="selectColor($event)"></color-picker>
             </div>
         </div>
     </ng-container>
@@ -42,8 +43,8 @@
                 <p>Let's get started on your first task.</p>
             </div>
 
-            <button class="button__gradient button--is-large button--is-long margin-top--xl">
-                Open Notebook
+            <button class="button__gradient button--is-large button--is-long margin-top--xl" (click)="finish()">
+                {{ notebookLoading ? 'Loading...' : 'Open Nota' }}
             </button>
         </div>
     </ng-container>
