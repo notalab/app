@@ -51,4 +51,8 @@ export class AppComponent implements OnInit {
     this.loadingApplication = false;
     this.isConnected = true;
   }
+
+  public get isOnboarding(): boolean {
+    return this.router.url.includes('onboarding');
+  }
 }

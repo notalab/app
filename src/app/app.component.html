@@ -3,7 +3,7 @@
 <ng-container *ngIf="!loadingApplication">
     <titlebar></titlebar>
     <router-outlet *ngIf="isConnected">
-        <sidebar *ngIf="authService.isAuthenticated()"></sidebar>
+        <sidebar *ngIf="authService.isAuthenticated() && !isOnboarding"></sidebar>
     </router-outlet>
 
     <ng-container *ngIf="!isConnected">
