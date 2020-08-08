@@ -42,4 +42,8 @@ export class NotebookComponent implements OnInit {
         this.selectedNote = note;
     }
 
+    public titleChange(event: string) {
+        this.selectedNote.title = event;
+    }
+
 }

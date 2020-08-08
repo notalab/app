@@ -7,7 +7,7 @@
         <div class="editor__editor">
             <div class="editor__editor--header">
                 <span class="editor__editor--header_color"></span>
-                <input class="editor__editor--header_title" [value]="note.title">
+                <input class="editor__editor--header_title" [value]="note.title" [(ngModel)]="titleStore">
 
                 <div class="editor__editor--icons">
                     <i class="editor__editor--icons_icon fa fa-trash" aria-hidden="true" title="Delete Note"></i>
