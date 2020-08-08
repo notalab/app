@@ -3,6 +3,7 @@ import { HttpService, APIResponse } from '../../providers/http.service';
 import { Notebook } from 'models/core/Notebook';
 import { API } from 'app/app.constants';
 import { Observable } from 'rxjs';
+import { Note } from 'app/models/core/Note';
 
 @Injectable()
 export class NotebookService {
@@ -22,6 +23,13 @@ export class NotebookService {
 
     public deleteNotebook(id: number): Observable<APIResponse<any>> {
         return this.http.delete<any>(API.format(`app/notebook/${id}`));
+    }
+
+    public createNote(note: Note, notebook: Notebook): Observable<APIResponse<Note>> {
+        return this.http.post<Note>(API.format('app/notes'), {
+            ...note,
+            notebook_id: notebook.id
+        });
     }
 
 }

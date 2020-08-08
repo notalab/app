@@ -26,8 +26,8 @@ export class NotebookComponent implements OnInit {
         // tests
         this.notebook.notes.push(new Note({
             title: 'Title',
-            createdAt: 1596363751,
-            updatedAt: 1596363751,
+            created_at: 1596363751,
+            updated_at: 1596363751,
             ownerUsername: 'nota',
             tags: [],
             content: null
@@ -35,7 +35,7 @@ export class NotebookComponent implements OnInit {
     }
 
     public get notes(): Note[] {
-        return this.notebook.notes.sort((a: Note, b: Note) => b.updatedAt - a.updatedAt);
+        return this.notebook.notes.sort((a: Note, b: Note) => b.updated_at - a.updated_at);
     }
 
     public selectNote(note: Note): void {

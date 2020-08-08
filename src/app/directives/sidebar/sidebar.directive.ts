@@ -120,10 +120,22 @@ export class SidebarDirectiveComponent implements OnInit {
             return;
         }
 
-        this.notebookService.notebooks[this.notebookService.selectedNotebook].notes.push(new Note({
+        let note = new Note({
             title: 'Untitled Note',
+            content: null,
             ownerUsername: this.authService.user.username,
-            updatedAt: Date.now() / 1000
-        }));
+            created_at: Date.now() / 1000,
+            created_at: Date.now() / 1000
+        });
+
+        this.notebookService.notebooks[this.notebookService.selectedNotebook].notes.push(note);
+        this.notebookService.createNote(note, this.notebookService.notebooks[this.notebookService.selectedNotebook]).subscribe(
+            data => {
+                console.log(data.data);
+            },
+            () => {
+                console.log('error');
+            }
+        );
     }
 }

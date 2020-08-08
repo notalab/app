@@ -32,6 +32,6 @@ export class NoteItemDirectiveComponent implements OnInit {
     }
 
     public getTime(): void {
-        this.relativeUpdatedTime = moment.unix(this.note.updatedAt).fromNow();
+        this.relativeUpdatedTime = moment.unix(this.note.updated_at).fromNow();
     }
 }
