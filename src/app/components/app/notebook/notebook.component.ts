@@ -19,6 +19,7 @@ export class NotebookComponent implements OnInit {
         this.route.params.subscribe(
             params => {
                 this.notebook = this.notebookService.notebooks.find((notebook: Notebook) => notebook.id === Number(params.id));
+                this.notebookService.selectedNotebook = this.notebookService.notebooks.indexOf(this.notebook);
             }
         );
 
@@ -31,6 +32,10 @@ export class NotebookComponent implements OnInit {
             tags: [],
             content: null
         }));
+    }
+
+    public get notes(): Note[] {
+        return this.notebook.notes.sort((a: Note, b: Note) => b.updatedAt - a.updatedAt);
     }
 
     public selectNote(note: Note): void {

@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div id="generic-menu" *ngIf="activeMenu == 'generic'">
-        <div class="sidebar__big-button">
+        <div class="sidebar__big-button" (click)="createNote()">
             <img src="assets/svg/note-white.svg" class="sidebar__big-button--icon" />
         </div>
     

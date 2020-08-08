@@ -10,6 +10,7 @@ import { NotebookService } from 'app/components/app/notebook.service';
 import { of } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { Note } from 'app/models/core/Note';
 
 describe('NotebookComponent', () => {
     let component: NotebookComponent;
@@ -45,6 +46,10 @@ describe('NotebookComponent', () => {
         expect(component.selectNote).toHaveBeenCalled();
         expect(component.selectedNote).toBeTruthy();
     }));
+
+    it('should set the selectedNotebook', () => {
+        expect(service.selectedNotebook).not.toBeUndefined();
+    });
 });
 
 class MockNotebookService {
@@ -57,5 +62,6 @@ class MockNotebookService {
             notes: []
         }
     ];
+    public selectedNotebook: number;
 
 }

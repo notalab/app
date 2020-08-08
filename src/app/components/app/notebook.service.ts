@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class NotebookService {
 
     public notebooks: Notebook[] = [];
+    public selectedNotebook: number;
 
     constructor(private http: HttpService) { }
 

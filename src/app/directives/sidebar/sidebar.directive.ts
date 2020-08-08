@@ -4,6 +4,7 @@ import { AuthService } from 'app/components/auth/auth.service';
 import * as cl from 'color';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NotebookService } from 'app/components/app/notebook.service';
+import { Note } from 'app/models/core/Note';
 
 type MenuType = 'generic' | 'settings';
 
@@ -112,5 +113,17 @@ export class SidebarDirectiveComponent implements OnInit {
                 this.notebookService.notebooks.splice(this.notebookService.notebooks.indexOf(notebook), 1);
             }
         );
+    }
+
+    public createNote(): void {
+        if (this.notebookService.selectedNotebook === undefined) {
+            return;
+        }
+
+        this.notebookService.notebooks[this.notebookService.selectedNotebook].notes.push(new Note({
+            title: 'Untitled Note',
+            ownerUsername: this.authService.user.username,
+            updatedAt: Date.now() / 1000
+        }));
     }
 }
