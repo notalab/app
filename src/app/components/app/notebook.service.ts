@@ -32,4 +32,8 @@ export class NotebookService {
         });
     }
 
+    public updateNote(note: Note): Observable<APIResponse<Note>> {
+        return this.http.put(API.format(`app/note/${note.id}`), note);
+    }
+
 }

@@ -116,7 +116,9 @@ export class SidebarDirectiveComponent implements OnInit {
     }
 
     public createNote(): void {
-        if (this.notebookService.selectedNotebook === undefined) {
+        let selected = this.notebookService.selectedNotebook;
+
+        if (selected === undefined) {
             return;
         }
 
@@ -125,16 +127,17 @@ export class SidebarDirectiveComponent implements OnInit {
             content: null,
             ownerUsername: this.authService.user.username,
             created_at: Date.now() / 1000,
-            created_at: Date.now() / 1000
+            updated_at: Date.now() / 1000
         });
 
-        this.notebookService.notebooks[this.notebookService.selectedNotebook].notes.push(note);
-        this.notebookService.createNote(note, this.notebookService.notebooks[this.notebookService.selectedNotebook]).subscribe(
+        this.notebookService.notebooks[selected].notes.push(note);
+        let noteIndex = this.notebookService.notebooks[selected].notes.indexOf(note);
+        this.notebookService.createNote(note, this.notebookService.notebooks[selected]).subscribe(
             data => {
-                console.log(data.data);
+                this.notebookService.notebooks[selected].notes[noteIndex] = data.data;
             },
             () => {
-                console.log('error');
+                this.notebookService.notebooks[selected].notes.splice(noteIndex, 1);
             }
         );
     }

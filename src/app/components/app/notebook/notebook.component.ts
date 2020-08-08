@@ -35,7 +35,7 @@ export class NotebookComponent implements OnInit {
     }
 
     public get notes(): Note[] {
-        return this.notebook.notes.sort((a: Note, b: Note) => b.updated_at - a.updated_at);
+        return this.notebook.notes.concat().sort((a: Note, b: Note) => b.updated_at - a.updated_at);
     }
 
     public selectNote(note: Note): void {
@@ -43,7 +43,14 @@ export class NotebookComponent implements OnInit {
     }
 
     public titleChange(event: string) {
+        let note = this.notebook.notes.findIndex(x => x.id === this.selectedNote.id);
         this.selectedNote.title = event;
+
+        this.notebookService.updateNote(this.selectedNote).subscribe(
+            data => {
+                this.notebook.notes[note] = data.data;
+            }
+        );
     }
 
 }

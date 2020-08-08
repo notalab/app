@@ -2,6 +2,7 @@ import { Model } from '../Model';
 
 export class Note extends Model {
 
+    public id: number;
     public title: string;
     public created_at: number;
     public updated_at: number;
