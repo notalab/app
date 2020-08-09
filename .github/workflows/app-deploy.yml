@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Get Version
-      id: version
-      uses: martinbeentjes/npm-get-version-action@master
+    - name: Set outputs
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     - name: Install dependencies
       run: npm install
     - name: Build Application
@@ -30,8 +30,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: release-${{ steps.version.outputs.current-version }}
-        release_name: Release ${{ steps.version.outputs.current-version }}
+        tag_name: release-${{ steps.vars.outputs.sha_short }}
+        release_name: Release ${{ steps.vars.outputs.sha_short }}
         draft: false
         prerelease: false
     - name: Upload Build Artifact
@@ -41,6 +41,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: "./release/Nota ${{ steps.version.outputs.current-version }}.exe"
-        asset_name: Nota ${{ steps.version.outputs.current-version }}.exe
+        asset_path: ./release/Nota 0.0.1-pre.exe
+        asset_name: Nota 0.0.1-pre.exe
         asset_content_type: application/zip
