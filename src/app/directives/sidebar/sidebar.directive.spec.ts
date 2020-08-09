@@ -11,6 +11,7 @@ import { NotebookService } from 'app/components/app/notebook.service';
 import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { routes } from 'app/components/app/main-routing.module';
+import { Note } from 'app/models/core/Note';
 
 describe('SidebarDirectiveComponent', () => {
     let component: SidebarDirectiveComponent;
@@ -122,11 +123,24 @@ describe('SidebarDirectiveComponent', () => {
     //         expect(location.path()).toBe('/app/notebook/1');
     //     });
     // }));
+
+    it('should create a new note', () => {
+        service.notebooks = [new Notebook({
+            title: 'Notebook Title',
+            color: '00FF31',
+            notes: []
+        })];
+        service.selectedNotebook = 0;
+
+        component.createNote();
+        expect(service.notebooks[0].notes.length).toBe(1);
+    });
 });
 
 class MockNotebookService {
 
     public notebooks: Notebook[] = [];
+    public selectedNotebook: number;
 
     public createNotebook(form: any): Observable<APIResponse<Notebook>> {
         let notebook = new Notebook({
@@ -157,6 +171,13 @@ class MockNotebookService {
     public deleteNotebook(id: number): Observable<APIResponse<any>> {
         return of({
             data: 200,
+            status: 200
+        });
+    }
+
+    public createNote(note: Note, notebook: Notebook): Observable<APIResponse<Note>> {
+        return of({
+            data: new Note({}),
             status: 200
         });
     }

@@ -2,9 +2,10 @@ import { Model } from '../Model';
 
 export class Note extends Model {
 
+    public id: number;
     public title: string;
-    public createdAt: number;
-    public updatedAt: number;
+    public created_at: number;
+    public updated_at: number;
     public ownerUsername: string;
     public tags: Array<string>;
     public content: string;

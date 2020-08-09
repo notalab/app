@@ -19,6 +19,10 @@ export const routes: Routes = [
             {
                 path: 'notebook/:id',
                 component: NotebookComponent
+            },
+            {
+                path: 'notebook/:id/:noteid',
+                component: NotebookComponent
             }
         ]
     }

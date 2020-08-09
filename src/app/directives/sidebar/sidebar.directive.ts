@@ -4,6 +4,8 @@ import { AuthService } from 'app/components/auth/auth.service';
 import * as cl from 'color';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NotebookService } from 'app/components/app/notebook.service';
+import { Note } from 'app/models/core/Note';
+import { Router } from '@angular/router';
 
 type MenuType = 'generic' | 'settings';
 
@@ -26,7 +28,7 @@ export class SidebarDirectiveComponent implements OnInit {
     };
     public contextNotebook: Notebook;
 
-    constructor(public authService: AuthService, public notebookService: NotebookService) {}
+    constructor(public authService: AuthService, public notebookService: NotebookService, private router: Router) {}
 
     ngOnInit() {
         this.activeMenu = 'generic';
@@ -110,6 +112,38 @@ export class SidebarDirectiveComponent implements OnInit {
         this.notebookService.deleteNotebook(notebook.id).subscribe(
             () => {
                 this.notebookService.notebooks.splice(this.notebookService.notebooks.indexOf(notebook), 1);
+            }
+        );
+    }
+
+    public createNote(): void {
+        let selected = this.notebookService.selectedNotebook;
+
+        if (selected === undefined) {
+            return;
+        }
+
+        let note = new Note({
+            title: 'Untitled Note',
+            content: null,
+            ownerUsername: this.authService.user.username,
+            created_at: Date.now() / 1000,
+            updated_at: Date.now() / 1000,
+            id: 'new-note'
+        });
+
+        this.notebookService.notebooks[selected].notes.push(note);
+        let noteIndex = this.notebookService.notebooks[selected].notes.indexOf(note);
+
+        this.router.navigate(['app/notebook/' + this.notebookService.notebooks[selected].id + '/new-note']);
+
+        this.notebookService.createNote(note, this.notebookService.notebooks[selected]).subscribe(
+            data => {
+                this.notebookService.notebooks[selected].notes[noteIndex] = data.data;
+                this.router.navigate(['app/notebook/' + this.notebookService.notebooks[selected].id + '/' + data.data.id]);
+            },
+            () => {
+                this.notebookService.notebooks[selected].notes.splice(noteIndex, 1);
             }
         );
     }
