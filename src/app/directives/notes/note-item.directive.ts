@@ -24,7 +24,7 @@ export class NoteItemDirectiveComponent implements OnInit {
         }, 1000);
     }
 
-    public getAuthor(): string {
+    public get author(): string {
         if (this.note.ownerUsername === this.authService.user.username) {
             return '@me';
         }
@@ -34,5 +34,9 @@ export class NoteItemDirectiveComponent implements OnInit {
 
     public getTime(): void {
         this.relativeUpdatedTime = moment.unix(this.note.updated_at).fromNow();
+    }
+
+    public get content(): string {
+        return this.note.content ? this.note.content.replace(/<[^>]*>?/gm, '') : 'No content';
     }
 }

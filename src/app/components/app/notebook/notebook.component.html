@@ -13,5 +13,5 @@
 </div>
 
 <div id="editor-pane" class="editor">
-    <editor *ngIf="selectedNote" [note]="selectedNote" (titleChange)="titleChange($event)"></editor>
+    <editor *ngIf="selectedNote" [note]="selectedNote" (stateChange)="noteStateChange($event)"></editor>
 </div>

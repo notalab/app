@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick, discardPeriodicTasks, flush, flushMicrotasks } from '@angular/core/testing';
 
 import { NotebookComponent } from './notebook.component';
 import { ActivatedRoute } from '@angular/router';
@@ -7,10 +7,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MOCK_AUTH_PROVIDER } from 'app/providers/tests/auth.mock.service';
 import { Notebook } from 'app/models/core/Notebook';
 import { NotebookService } from 'app/components/app/notebook.service';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Note } from 'app/models/core/Note';
+import { APIResponse } from 'app/providers/http.service';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 describe('NotebookComponent', () => {
     let component: NotebookComponent;
@@ -31,6 +33,20 @@ describe('NotebookComponent', () => {
         component = fixture.componentInstance;
         service = TestBed.inject(NotebookService);
         debug = fixture.debugElement;
+
+        fixture.detectChanges();
+
+        component.notebook.notes = [
+            new Note({
+                title: 'Title',
+                created_at: Date.now() / 1000,
+                updated_at: Date.now() / 1000,
+                ownerUsername: 'nota',
+                tags: [],
+                content: null
+            })
+        ];
+
         fixture.detectChanges();
     });
 
@@ -41,15 +57,65 @@ describe('NotebookComponent', () => {
     it('should select a note when a note is clicked', fakeAsync(() => {
         spyOn(component, 'selectNote').and.callThrough();
         fixture.detectChanges();
-        debug.query(By.css('#note-Title')).nativeElement.click();
+        selectNote();
         tick();
+
         expect(component.selectNote).toHaveBeenCalled();
         expect(component.selectedNote).toBeTruthy();
+
+        clearTimers();
     }));
 
     it('should set the selectedNotebook', () => {
         expect(service.selectedNotebook).not.toBeUndefined();
     });
+
+    it('should update the title after .5s', fakeAsync(() => {
+        selectNote();
+
+        let el = debug.query(By.css('#editor-title')).nativeElement;
+
+        setInputValue('#editor-title', 'someTitle');
+        expect(el.value).toBe('someTitle');
+
+        setTimeout(() => {
+            expect(component.selectedNote.title).toBe('someTitle');
+            expect(component.notebook.notes[0].title).toBe('someTitle');
+        }, 500 + 1);
+
+        clearTimers();
+    }));
+
+    it('should update the content after 2s', fakeAsync(() => {
+        selectNote();
+
+        let el = debug.query(By.css('#editor-content')).nativeElement;
+
+        setInputValue('#editor-content', '<p>test</p>');
+        expect(el.value).toBe('<p>test</p>');
+
+        clearTimers();
+    }));
+
+    function selectNote(): void {
+        debug.query(By.css('#note-Title')).nativeElement.click();
+        fixture.detectChanges();
+    }
+
+    function clearTimers(): void {
+        flush();
+        discardPeriodicTasks();
+    }
+
+    function setInputValue(selector: string, value: string): void {
+        fixture.detectChanges();
+        tick();
+
+        let input = fixture.debugElement.query(By.css(selector)).nativeElement;
+        input.value = value;
+        input.dispatchEvent(new Event('input'));
+        tick();
+    }
 });
 
 class MockNotebookService {
@@ -63,5 +129,12 @@ class MockNotebookService {
         }
     ];
     public selectedNotebook: number;
+
+    public updateNote(note: Note): Observable<APIResponse<Note>> {
+        return of({
+            data: note,
+            status: 200
+        })
+    }
 
 }

@@ -3,10 +3,10 @@
 }">
     <div class="notes__notes--item-container">
         <div class="notes__notes--item-row">
-            <div class="notes__notes--item-user">{{ getAuthor() }}</div>
+            <div class="notes__notes--item-user">{{ author }}</div>
             <div class="notes__notes--item-date">{{ relativeUpdatedTime }}</div>
         </div>
         <div class="notes__notes--item-title">{{ note.title }}</div>
-        <div class="notes__notes--item-description">{{ note.content || 'No content' }}</div>
+        <div class="notes__notes--item-description">{{ content }}</div>
     </div>
 </div>

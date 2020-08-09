@@ -7,7 +7,7 @@
         <div class="editor__editor">
             <div class="editor__editor--header">
                 <span class="editor__editor--header_color"></span>
-                <input class="editor__editor--header_title" [value]="note.title" [(ngModel)]="titleStore">
+                <input id="editor-title" class="editor__editor--header_title" [value]="note.title" [(ngModel)]="titleStore">
 
                 <div class="editor__editor--icons">
                     <i class="editor__editor--icons_icon fa fa-trash" aria-hidden="true" title="Delete Note"></i>
@@ -16,7 +16,7 @@
                     <i class="editor__editor--icons_icon fa fa-share" aria-hidden="true" title="Share Note"></i>
                 </div>
             </div>
-            <quill-editor class="editor__editor--body" placeholder=""></quill-editor>
+            <quill-editor id="editor-content" class="editor__editor--body" placeholder="" [(ngModel)]="contentStore"></quill-editor>
         </div>
     </div>
 </div>

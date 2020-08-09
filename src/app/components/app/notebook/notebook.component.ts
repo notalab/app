@@ -22,16 +22,6 @@ export class NotebookComponent implements OnInit {
                 this.notebookService.selectedNotebook = this.notebookService.notebooks.indexOf(this.notebook);
             }
         );
-
-        // tests
-        this.notebook.notes.push(new Note({
-            title: 'Title',
-            created_at: 1596363751,
-            updated_at: 1596363751,
-            ownerUsername: 'nota',
-            tags: [],
-            content: null
-        }));
     }
 
     public get notes(): Note[] {
@@ -42,9 +32,13 @@ export class NotebookComponent implements OnInit {
         this.selectedNote = note;
     }
 
-    public titleChange(event: string) {
+    public noteStateChange(event: any) {
         let note = this.notebook.notes.findIndex(x => x.id === this.selectedNote.id);
-        this.selectedNote.title = event;
+        this.selectedNote = {
+            ...this.selectedNote,
+            title: event.title,
+            content: event.content
+        };
 
         this.notebookService.updateNote(this.selectedNote).subscribe(
             data => {
