@@ -12,7 +12,7 @@
                 <input id="editor-title" class="editor__editor--header_title" [value]="note.title" [(ngModel)]="titleStore" (keydown.tab)="focusEditor();false">
 
                 <div class="editor__editor--icons">
-                    <i class="editor__editor--icons_icon fa fa-trash" aria-hidden="true" title="Delete Note"></i>
+                    <i class="editor__editor--icons_icon fa fa-trash" aria-hidden="true" title="Delete Note" (click)="delete.emit(note)"></i>
                     <i class="editor__editor--icons_icon fa fa-tag" aria-hidden="true" title="Tags"></i>
                     <i class="editor__editor--icons_icon fa fa-star" aria-hidden="true" title="Star Note"></i>
                     <i class="editor__editor--icons_icon fa fa-share" aria-hidden="true" title="Share Note"></i>

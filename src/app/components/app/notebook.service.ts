@@ -36,4 +36,8 @@ export class NotebookService {
         return this.http.put(API.format(`app/note/${note.id}`), note);
     }
 
+    public deleteNote(id: number): Observable<APIResponse<any>> {
+        return this.http.delete<any>(API.format(`app/note/${id}`));
+    }
+
 }

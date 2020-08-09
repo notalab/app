@@ -11,6 +11,7 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
     @Input() note: Note;
     @Input() color: string;
     @Output() stateChange = new EventEmitter<any>();
+    @Output() delete = new EventEmitter<Note>();
     public titleStore: string;
     public contentStore: string;
     public editor: QuillEditor;
