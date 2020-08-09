@@ -134,7 +134,7 @@ class MockNotebookService {
         return of({
             data: note,
             status: 200
-        })
+        });
     }
 
 }
