@@ -9,6 +9,7 @@ import { QuillEditor } from 'ngx-quill';
 export class EditorDirectiveComponent implements OnInit, OnChanges {
 
     @Input() note: Note;
+    @Input() color: string;
     @Output() stateChange = new EventEmitter<any>();
     public titleStore: string;
     public contentStore: string;

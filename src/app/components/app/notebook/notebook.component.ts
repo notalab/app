@@ -12,8 +12,9 @@ export class NotebookComponent implements OnInit {
 
     public notebook: Notebook;
     public selectedNote: Note;
+    public selectedNoteColor: string;
 
-    constructor(private route: ActivatedRoute, private notebookService: NotebookService) { }
+    constructor(private route: ActivatedRoute, public notebookService: NotebookService) { }
 
     ngOnInit(): void {
         this.route.params.subscribe(
@@ -30,6 +31,7 @@ export class NotebookComponent implements OnInit {
 
     public selectNote(note: Note): void {
         this.selectedNote = note;
+        this.selectedNoteColor = this.notebook.color;
     }
 
     public noteStateChange(event: any) {

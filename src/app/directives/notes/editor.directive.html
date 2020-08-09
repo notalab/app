@@ -6,7 +6,9 @@
     <div class="editor__pane" *ngIf="note">
         <div class="editor__editor">
             <div class="editor__editor--header">
-                <span class="editor__editor--header_color"></span>
+                <span class="editor__editor--header_color" [ngStyle]="{
+                    'background-color': '#' + color
+                }"></span>
                 <input id="editor-title" class="editor__editor--header_title" [value]="note.title" [(ngModel)]="titleStore">
 
                 <div class="editor__editor--icons">
