@@ -14,6 +14,7 @@ export class EditorDirectiveComponent implements OnInit {
 
     ngOnInit() {
         this.titleStore = this.note ? this.note.title : null;
+        this.lastTitle = this.titleStore;
 
         setInterval(() => {
             if (this.lastTitle !== this.titleStore) {
