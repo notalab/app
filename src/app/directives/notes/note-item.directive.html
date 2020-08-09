@@ -1,4 +1,4 @@
-<div [id]="'note-' + note.title" class="notes__notes--item" [ngStyle]="{
+<div [id]="'note-' + note.title" class="notes__notes--item" [ngClass]="{'notes__notes--item--selected': selected}" [ngStyle]="{
     'border-left': '7.5px solid #' + color
 }">
     <div class="notes__notes--item-container">

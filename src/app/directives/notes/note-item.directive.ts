@@ -11,6 +11,7 @@ export class NoteItemDirectiveComponent implements OnInit {
 
     @Input() note: Note;
     @Input() color: string;
+    @Input() selected = false;
     public relativeUpdatedTime: string;
 
     constructor(private authService: AuthService) { }
