@@ -13,6 +13,7 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
     @Output() stateChange = new EventEmitter<any>();
     public titleStore: string;
     public contentStore: string;
+    public editor: QuillEditor;
     private lastContent: string;
     private lastTitle: string;
 
@@ -37,6 +38,12 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
         this.lastTitle = this.titleStore;
         this.contentStore = this.note ? this.note.content : null;
         this.lastContent = this.contentStore;
+    }
+
+    public focusEditor(): void {
+        if (this.editor) {
+            this.editor.focus();
+        }
     }
 
     private emitState(): void {

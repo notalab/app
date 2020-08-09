@@ -21,6 +21,11 @@ export class NotebookComponent implements OnInit {
             params => {
                 this.notebook = this.notebookService.notebooks.find((notebook: Notebook) => notebook.id === Number(params.id));
                 this.notebookService.selectedNotebook = this.notebookService.notebooks.indexOf(this.notebook);
+
+                if (params.noteid) {
+                    let note = this.notebook.notes.find(a => a.id === Number(params.noteid));
+                    this.selectNote(note);
+                }
             }
         );
     }
