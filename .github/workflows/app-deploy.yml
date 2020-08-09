@@ -49,7 +49,7 @@ jobs:
       if: matrix.os == 'macos-latest'
     - name: Upload Build Artifact (WIN)
       if: matrix.os == 'windows-latest'
-      id: upload-release-asset
+      id: upload-release-asset-win
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
         asset_content_type: application/zip
     - name: Upload Build Artifact (DARWIN)
       if: matrix.os == 'macos-latest'
-      id: upload-release-asset
+      id: upload-release-asset-darwin
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
