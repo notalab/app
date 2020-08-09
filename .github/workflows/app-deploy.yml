@@ -19,7 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Get Version
       id: version
-      run: martinbeentjes/npm-get-version-action@master
+      uses: martinbeentjes/npm-get-version-action@master
     - name: Install dependencies
       run: npm install
     - name: Build Application
