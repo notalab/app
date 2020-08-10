@@ -10,6 +10,7 @@ jobs:
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
+      - uses: actions/checkout@v1
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
