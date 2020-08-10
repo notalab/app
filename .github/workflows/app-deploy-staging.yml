@@ -1,11 +1,14 @@
 name: APP-Deploy-STG
 
-on: [push]
+on:
+  push:
+    branches:
+      staging
 
 jobs:
   create_release:
     
-    name: Create release
+    name: Create Release
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
@@ -27,7 +30,7 @@ jobs:
 
   release:
 
-    name: Release Assets
+    name: Build & Release Artifacts
     needs: create_release
     strategy:
       matrix:
@@ -42,10 +45,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install dependencies
       run: npm install
-    - name: Build Application (Windows)
+    - name: Build Application (WIN)
       run: npm run electron:windows:staging
       if: matrix.os == 'windows-latest'
-    - name: Build Application (Darwin)
+    - name: Build Application (DARWIN)
       run: npm run electron:mac:staging
       if: matrix.os == 'macos-latest'
     - name: Upload Build Artifact (WIN)
