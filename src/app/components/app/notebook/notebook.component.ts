@@ -51,6 +51,8 @@ export class NotebookComponent implements OnInit {
             title: event.title,
             content: event.content
         };
+
+        this.selectedNote = this.notebook.notes[note];
     }
 
 }
