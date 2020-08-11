@@ -11,6 +11,7 @@ export class InboxComponent implements OnInit {
     constructor(private notebookService: NotebookService) { }
 
     ngOnInit() {
+        this.notebookService.selectedNotebook = undefined;
     }
 
     public get notes(): Note[] {
