@@ -4,10 +4,11 @@
     </div>
 
     <div class="notes__notes">
-        <div class="notes__notes--empty">
+        <div *ngIf="notes.length === 0" class="notes__notes--empty">
             <p>Nothing to see here.</p>
             <p>Why not <span class="notes__notes--empty--add">Add a Note</span>?</p>
         </div>
+        <note-item *ngFor="let note of notes" [color]="note.color" [note]="note"></note-item>
     </div>
 </div>
 
