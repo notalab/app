@@ -12,8 +12,7 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
 
     @Input() note: Note;
     @Input() color: string;
-    @Output() stateChange = new EventEmitter<any>();
-    @Output() delete = new EventEmitter<Note>();
+    @Output() delete = new EventEmitter<any>();
     public titleStore: string;
     public contentStore: string;
     public editor: QuillEditor;
@@ -52,16 +51,17 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
     }
 
     private updateNote(): void {
-        this.note = {
-            ...this.note,
-            title: this.titleStore,
-            content: this.contentStore
-        };
+        let notebookIndex = this.notebookService.notebooks.findIndex(n => n.notes.find(note => note.id === this.note.id));
+        let noteIndex = this.notebookService.notebooks[notebookIndex].notes.findIndex(n => n.id === this.note.id);
+        console.log(noteIndex)
+
+        this.notebookService.notebooks[notebookIndex].notes[noteIndex].title = this.titleStore;
+        this.notebookService.notebooks[notebookIndex].notes[noteIndex].content = this.contentStore;
+        console.log(this.notebookService.notebooks[notebookIndex].notes[noteIndex]);
 
         this.notebookService.updateNote(this.note).subscribe(
             data => {
                 this.note = data.data;
-                this.stateChange.emit(this.note);
             }
         );
     }
@@ -71,7 +71,8 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
         let noteIndex = this.notebookService.notebooks[notebookIndex].notes.indexOf(this.note);
 
         this.notebookService.notebooks[notebookIndex].notes.splice(noteIndex, 1);
-        this.delete.emit();
+        // this.delete.emit();
+        this.notebookService.selectedNote = undefined;
         this.notebookService.deleteNote(this.note.id).subscribe(
             () => {},
             () => {
