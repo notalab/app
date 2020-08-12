@@ -53,11 +53,9 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
     private updateNote(): void {
         let notebookIndex = this.notebookService.notebooks.findIndex(n => n.notes.find(note => note.id === this.note.id));
         let noteIndex = this.notebookService.notebooks[notebookIndex].notes.findIndex(n => n.id === this.note.id);
-        console.log(noteIndex)
 
         this.notebookService.notebooks[notebookIndex].notes[noteIndex].title = this.titleStore;
         this.notebookService.notebooks[notebookIndex].notes[noteIndex].content = this.contentStore;
-        console.log(this.notebookService.notebooks[notebookIndex].notes[noteIndex]);
 
         this.notebookService.updateNote(this.note).subscribe(
             data => {
