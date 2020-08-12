@@ -35,7 +35,6 @@ export class NotebookComponent implements OnInit {
 
     public selectNote(note: Note): void {
         this.notebookService.selectedNote = note;
-        this.selectedNoteColor = this.notebook.color;
     }
 
 }

@@ -13,5 +13,5 @@
 </div>
 
 <div id="editor-pane" class="editor">
-    <editor *ngIf="notebookService.selectedNote" [note]="notebookService.selectedNote" [color]="selectedNoteColor" (delete)="deselectNote()"></editor>
+    <editor *ngIf="notebookService.selectedNote" [note]="notebookService.selectedNote" [color]="notebookService.selectedNote.color"></editor>
 </div>
