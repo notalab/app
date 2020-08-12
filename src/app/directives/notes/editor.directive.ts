@@ -60,6 +60,7 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
         this.notebookService.updateNote(this.note).subscribe(
             data => {
                 this.note = data.data;
+                this.notebookService.notebooks[notebookIndex].notes[noteIndex] = data.data;
             }
         );
     }
