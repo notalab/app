@@ -71,8 +71,8 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
         let noteIndex = this.notebookService.notebooks[notebookIndex].notes.indexOf(this.note);
 
         this.notebookService.notebooks[notebookIndex].notes.splice(noteIndex, 1);
-        // this.delete.emit();
         this.notebookService.selectedNote = undefined;
+
         this.notebookService.deleteNote(this.note.id).subscribe(
             () => {},
             () => {
