@@ -10,6 +10,7 @@ export class NotebookService {
 
     public notebooks: Notebook[] = [];
     public selectedNotebook: number;
+    public selectedNote: Note;
 
     constructor(private http: HttpService) { }
 
