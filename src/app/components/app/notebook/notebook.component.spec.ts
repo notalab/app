@@ -62,7 +62,6 @@ describe('NotebookComponent', () => {
 
         expect(component.selectNote).toHaveBeenCalled();
         expect(service.selectedNote).toBeTruthy();
-        expect(component.selectedNoteColor).toBe('FFFFFF');
 
         clearTimers();
     }));
