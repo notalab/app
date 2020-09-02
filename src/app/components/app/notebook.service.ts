@@ -10,6 +10,7 @@ export class NotebookService {
 
     public notebooks: Notebook[] = [];
     public selectedNotebook: number;
+    public selectedNote: Note;
 
     constructor(private http: HttpService) { }
 
@@ -38,6 +39,18 @@ export class NotebookService {
 
     public deleteNote(id: number): Observable<APIResponse<any>> {
         return this.http.delete<any>(API.format(`app/note/${id}`));
+    }
+
+    public getAllNotes(): Note[] {
+        let notes = [];
+        for (let notebook of this.notebooks) {
+            notebook.notes.forEach(note => {
+                note.color = notebook.color;
+                notes.push(note);
+            });
+        }
+
+        return notes;
     }
 
 }

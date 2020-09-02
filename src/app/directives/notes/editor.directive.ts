@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Note } from 'app/models/core/Note';
 import { QuillEditor } from 'ngx-quill';
+import { NotebookService } from 'app/components/app/notebook.service';
+import { Notebook } from 'app/models/core/Notebook';
 
 @Component({
     selector: 'editor',
@@ -10,25 +12,26 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
 
     @Input() note: Note;
     @Input() color: string;
-    @Output() stateChange = new EventEmitter<any>();
-    @Output() delete = new EventEmitter<Note>();
+    @Output() delete = new EventEmitter<any>();
     public titleStore: string;
     public contentStore: string;
     public editor: QuillEditor;
     private lastContent: string;
     private lastTitle: string;
 
+    constructor(private notebookService: NotebookService) {}
+
     ngOnInit() {
         setInterval(() => {
             if (this.lastTitle !== this.titleStore) {
-                this.emitState();
+                this.updateNote();
                 this.lastTitle = this.titleStore;
             }
         }, 500);
 
         setInterval(() => {
             if (this.lastContent !== this.contentStore) {
-                this.emitState();
+                this.updateNote();
                 this.lastContent = this.contentStore;
             }
         }, 2000);
@@ -47,10 +50,33 @@ export class EditorDirectiveComponent implements OnInit, OnChanges {
         }
     }
 
-    private emitState(): void {
-        this.stateChange.emit({
-            title: this.titleStore,
-            content: this.contentStore
-        });
+    private updateNote(): void {
+        let notebookIndex = this.notebookService.notebooks.findIndex(n => n.notes.find(note => note.id === this.note.id));
+        let noteIndex = this.notebookService.notebooks[notebookIndex].notes.findIndex(n => n.id === this.note.id);
+
+        this.notebookService.notebooks[notebookIndex].notes[noteIndex].title = this.titleStore;
+        this.notebookService.notebooks[notebookIndex].notes[noteIndex].content = this.contentStore;
+
+        this.notebookService.updateNote(this.note).subscribe(
+            data => {
+                this.note = data.data;
+                this.notebookService.notebooks[notebookIndex].notes[noteIndex] = data.data;
+            }
+        );
+    }
+
+    public deleteNote(): void {
+        let notebookIndex = this.notebookService.notebooks.findIndex(n => n.notes.find(note => note.id === this.note.id));
+        let noteIndex = this.notebookService.notebooks[notebookIndex].notes.indexOf(this.note);
+
+        this.notebookService.notebooks[notebookIndex].notes.splice(noteIndex, 1);
+        this.notebookService.selectedNote = undefined;
+
+        this.notebookService.deleteNote(this.note.id).subscribe(
+            () => {},
+            () => {
+                this.notebookService.notebooks[notebookIndex].notes.push(this.note);
+            }
+        );
     }
 }

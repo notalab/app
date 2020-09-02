@@ -11,7 +11,6 @@ import { NotebookService } from 'app/components/app/notebook.service';
 export class NotebookComponent implements OnInit {
 
     public notebook: Notebook;
-    public selectedNote: Note;
     public selectedNoteColor: string;
 
     constructor(private route: ActivatedRoute, public notebookService: NotebookService) { }
@@ -35,40 +34,7 @@ export class NotebookComponent implements OnInit {
     }
 
     public selectNote(note: Note): void {
-        this.selectedNote = note;
-        this.selectedNoteColor = this.notebook.color;
-    }
-
-    private deselectNote(): void {
-        this.selectedNote = undefined;
-        this.selectedNoteColor = undefined;
-    }
-
-    public noteStateChange(event: any) {
-        let note = this.notebook.notes.findIndex(x => x.id === this.selectedNote.id);
-        this.selectedNote = {
-            ...this.selectedNote,
-            title: event.title,
-            content: event.content
-        };
-
-        this.notebookService.updateNote(this.selectedNote).subscribe(
-            data => {
-                this.notebook.notes[note] = data.data;
-            }
-        );
-    }
-
-    public deleteNote(note: Note): void {
-        let index = this.notebook.notes.indexOf(note);
-        this.notebook.notes.splice(index, 1);
-        this.deselectNote();
-        this.notebookService.deleteNote(note.id).subscribe(
-            () => {},
-            () => {
-                this.notebook.notes.push(note); // delete failed, push back to array
-            }
-        );
+        this.notebookService.selectedNote = note;
     }
 
 }

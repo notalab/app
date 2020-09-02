@@ -61,8 +61,7 @@ describe('NotebookComponent', () => {
         tick();
 
         expect(component.selectNote).toHaveBeenCalled();
-        expect(component.selectedNote).toBeTruthy();
-        expect(component.selectedNoteColor).toBe('FFFFFF');
+        expect(service.selectedNote).toBeTruthy();
 
         clearTimers();
     }));
@@ -80,7 +79,7 @@ describe('NotebookComponent', () => {
         expect(el.value).toBe('someTitle');
 
         setTimeout(() => {
-            expect(component.selectedNote.title).toBe('someTitle');
+            expect(service.selectedNote.title).toBe('someTitle');
             expect(component.notebook.notes[0].title).toBe('someTitle');
         }, 500 + 1);
 
@@ -120,6 +119,8 @@ describe('NotebookComponent', () => {
 });
 
 class MockNotebookService {
+
+    public selectedNote: Note;
 
     public notebooks: Notebook[] = [
         {

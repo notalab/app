@@ -11,6 +11,9 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { LoginComponent } from './components/auth/login/login.component';
 import { InboxComponent } from './components/app/inbox/inbox.component';
 import { OnboardingNotebookComponent } from './components/onboarding/notebook/notebook.component';
+import { NotebookComponent } from './components/app/notebook/notebook.component';
+import { SidebarDirectiveComponent } from './components/app/sidebar/sidebar.directive';
+import { TitlebarDirectiveComponent } from './components/titlebar/titlebar.directive';
 
 /**
  * Providers
@@ -42,12 +45,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ModalDirectiveComponent } from './directives/modal/modal.directive';
 import { ButtonRightSmallDirectiveComponent } from './directives/button/button-right-small.directive';
 import { ColorPickerDirectiveComponent } from './directives/color-picker/color-picker.directive';
-import { SidebarDirectiveComponent } from './directives/sidebar/sidebar.directive';
-import { TitlebarDirectiveComponent } from './directives/titlebar/titlebar.directive';
 import { NoteItemDirectiveComponent } from './directives/notes/note-item.directive';
 import { EditorDirectiveComponent } from './directives/notes/editor.directive';
 import { ContextNotebookDirectiveComponent } from './directives/context/context-notebook.directive';
-import { NotebookComponent } from './components/app/notebook/notebook.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/locales/', '.json');
